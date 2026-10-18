@@ -39,15 +39,17 @@
   .wrap{max-width:1400px;margin:0 auto}
 
   /* Header */
-  header{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:18px}
-  .brand h1{font-size:22px;font-weight:700;letter-spacing:-0.5px;display:flex;align-items:center;gap:10px}
+  header{display:flex;flex-direction:column;gap:12px;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:16px}
+  .titlerow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .titlerow h1{font-size:22px;font-weight:700;letter-spacing:-0.5px;display:flex;align-items:center;gap:10px;white-space:nowrap}
   .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
-  .brand p{color:var(--ink-dim);font-size:12px;margin-top:4px;font-family:var(--mono)}
-  .sheetctrl{display:flex;align-items:center;gap:6px;margin-top:10px}
-  .sheetctrl button{background:var(--panel2);border:1px solid var(--line);color:var(--ink);width:30px;height:30px;border-radius:7px;cursor:pointer;font-size:15px;font-family:var(--mono);transition:.15s;display:flex;align-items:center;justify-content:center}
-  .sheetctrl button:hover{border-color:var(--green);color:var(--green)}
-  .sheetctrl .sname{font-family:var(--sans);font-weight:600;font-size:15px;padding:0 10px;min-width:90px;text-align:center;color:var(--green);letter-spacing:.2px}
-  .sheetctrl .gear{margin-left:4px}
+  .titlerow .gear{background:var(--panel2);border:1px solid var(--line);color:var(--ink);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0}
+  .titlerow .gear:hover{border-color:var(--green);color:var(--green)}
+  /* riga fogli/profili */
+  .sheettabs{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .sheettabs .stab{background:var(--panel2);border:1px solid var(--line-soft);color:var(--ink-dim);padding:5px 12px;border-radius:7px;cursor:pointer;font-family:var(--sans);font-weight:600;font-size:13px;transition:.15s}
+  .sheettabs .stab:hover{color:var(--ink);border-color:var(--line)}
+  .sheettabs .stab.on{color:var(--today);border-color:var(--today);background:#0a2630}
   .sheetrow{display:flex;align-items:center;gap:8px;padding:8px 4px;border-bottom:1px solid var(--line-soft)}
   .sheetrow:last-child{border-bottom:none}
   .sheetrow .nm{flex:1;font-weight:600;font-size:14px;cursor:pointer}
@@ -57,9 +59,25 @@
   .sheetrow .act{background:none;border:1px solid var(--line);color:var(--ink-dim);border-radius:6px;padding:4px 9px;font-size:11px;font-family:var(--mono);cursor:pointer;transition:.15s}
   .sheetrow .act:hover{border-color:var(--green);color:var(--green)}
   .sheetrow .act.del:hover{border-color:var(--red);color:var(--red)}
+  .sheetrow .act.on{border-color:var(--amber);color:var(--amber)}
+  .bmitem.bmdisabled{opacity:.55}
+  /* drag & drop riordino */
+  .draghandle{cursor:grab;color:var(--ink-faint);font-size:14px;padding:0 6px 0 2px;user-select:none;line-height:1}
+  .draghandle:active{cursor:grabbing}
+  .draggable.dragging{opacity:.4}
+  .draggable.dragover{outline:2px dashed var(--today);outline-offset:-2px;border-radius:8px}
+  .sheetrow.rowdisabled .nm{color:var(--ink-faint)}
+  .offbadge{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.4px;color:var(--amber);border:1px solid var(--amber);border-radius:4px;padding:1px 5px;margin-left:6px;vertical-align:middle}
   .bmitem{border-bottom:1px solid var(--line-soft);padding-bottom:6px;margin-bottom:2px}
   .bmitem:last-child{border-bottom:none}
   .minreq{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0 4px 4px}
+  .mrmonth{font-size:12px;color:var(--ink);font-family:var(--mono);padding:6px 4px 10px;border-bottom:1px solid var(--line-soft);margin-bottom:8px}
+  .mrmonth b{color:var(--today)}
+  .mrmonth .ro{color:var(--amber)}
+  .gradeRow{display:flex;align-items:center;gap:8px;padding:2px 4px 6px;flex-wrap:wrap}
+  .gradeRow .mrl{font-size:10px;color:var(--ink-faint);font-family:var(--mono);text-transform:uppercase;letter-spacing:.4px}
+  .gradeRow .mrgrade{flex:1;min-width:140px;background:var(--bg);border:1px solid var(--line);color:var(--green);padding:5px 8px;border-radius:7px;font-family:var(--mono);font-size:12px}
+  .gradeRow .mrgrade:focus{outline:none;border-color:var(--green)}
   .minreq .mrl{font-size:10px;color:var(--ink-faint);font-family:var(--mono);text-transform:uppercase;letter-spacing:.4px}
   .minreq label{font-size:11px;color:var(--ink-dim);display:flex;align-items:center;gap:5px;font-family:var(--mono)}
   .minreq input.mrin{width:66px;padding:5px 7px;font-size:12px}
@@ -74,14 +92,14 @@
   .proflegend .sw.green{background:var(--green)}
   .proflegend .sw.orange{background:var(--amber)}
   .proflegend .sw.red{background:var(--red)}
-  .yearctrl{display:flex;align-items:center;gap:6px}
+  .yearctrl{display:flex;align-items:center;gap:6px;margin-left:8px}
   .yearctrl button{background:var(--panel2);border:1px solid var(--line);color:var(--ink);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:16px;font-family:var(--mono);transition:.15s}
   .yearctrl button:hover{border-color:var(--green);color:var(--green)}
   .yearctrl .yr{font-family:var(--mono);font-size:20px;font-weight:500;min-width:64px;text-align:center;letter-spacing:1px}
 
   /* Toolbar */
   .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
-  .months{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+  .months{display:flex;gap:4px;flex-wrap:wrap}
   .mtab{background:transparent;border:1px solid var(--line-soft);color:var(--ink-dim);padding:6px 11px;border-radius:7px;cursor:pointer;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.5px;transition:.15s}
   .mtab:hover{color:var(--ink)}
   .mtab.on{background:var(--green-deep);border-color:var(--green);color:#eafff4}
@@ -121,6 +139,8 @@
   thead th{background:var(--panel2);position:sticky;top:0;padding:10px 8px;font-weight:600;font-size:12px;letter-spacing:.3px;z-index:2}
   thead th.bm{min-width:110px}
   thead th .bmname{display:flex;align-items:center;justify-content:center;gap:6px}
+  thead th .bmgrade{font-family:var(--mono);font-size:10px;font-weight:400;color:var(--green);letter-spacing:.2px;margin-top:3px}
+  thead th .bmgrade b{font-weight:600}
   thead th .bmoff{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--amber);letter-spacing:.3px;margin-top:3px;opacity:1}
   thead th .rm{color:var(--ink-faint);cursor:pointer;font-family:var(--mono);font-size:14px;line-height:1}
   thead th .rm:hover{color:var(--red)}
@@ -132,15 +152,37 @@
   tr.today td.datecell{color:var(--today);background:#0a2630;box-shadow:inset 3px 0 0 var(--today);font-weight:600}
   tr.today td.cell:hover{background:#0f3340}
   .todaytag{margin-left:7px;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:#04222b;background:var(--today);padding:1px 5px;border-radius:4px;vertical-align:middle}
-  td.cell{padding:0;height:38px;cursor:pointer;transition:background .12s;position:relative}
+  td.cell{padding:0;height:38px;cursor:pointer;transition:background .12s;position:relative;vertical-align:middle}
   td.cell:hover{background:#15302680}
   td.cell .val{font-family:var(--mono);font-weight:500}
   td.cell .val.pos{color:var(--green)}
   td.cell .val.neg{color:var(--red)}
   td.cell .cnt{position:absolute;top:3px;right:4px;font-size:9px;font-family:var(--mono);color:var(--ink-faint)}
   td.cell.empty:hover::after{content:'+';color:var(--ink-faint);font-family:var(--mono)}
+  /* dettaglio cella per categoria */
+  td.cell .celldetail{display:flex;flex-direction:column;gap:2px;padding:6px 8px;align-items:stretch}
+  td.cell:has(.remflag) .celldetail{padding-top:14px}
+  td.cell .cl{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12.5px;line-height:1.3;white-space:nowrap;position:relative;cursor:default}
+  td.cell .cl-k{font-size:11px;text-transform:uppercase;letter-spacing:.3px;opacity:.95}
+  td.cell .cl-v{font-weight:500}
+  .cat-ricarica{color:#5ac8fa}
+  .cat-sport{color:var(--green)}
+  .cat-casino{color:var(--amber)}
+  .cat-casinolive{color:#c77dff}
+  /* tooltip dettaglio movimenti (hover su una voce della cella) */
+  td.cell .celltip{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:6px;
+    background:#0a1712;border:1px solid var(--green-deep);border-radius:8px;padding:7px 9px;min-width:150px;max-width:240px;
+    z-index:60;box-shadow:0 6px 20px #000a;white-space:normal;text-align:left;pointer-events:none}
+  td.cell .cl:hover .celltip{display:block}
+  .celltip .tt-h{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink-dim);border-bottom:1px solid var(--line-soft);padding-bottom:4px;margin-bottom:4px}
+  .celltip .tt-row{display:flex;align-items:baseline;gap:7px;font-size:11.5px;padding:2px 0;flex-wrap:wrap}
+  .celltip .tt-time{color:var(--today);font-family:var(--mono);font-size:10.5px;min-width:34px}
+  .celltip .tt-amt{color:var(--ink);font-family:var(--mono);font-weight:500}
+  .celltip .tt-note{color:var(--ink-dim);font-size:11px;flex-basis:100%;padding-left:41px;margin-top:-1px}
 
   /* week separator + totals */
+  tr.pasttoggle td{background:#060d0a;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--ink-dim);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;text-align:left;padding:7px 10px;position:sticky;left:0;user-select:none}
+  tr.pasttoggle td:hover{background:#0c1712;color:var(--ink)}
   tr.weektot td{background:#0c1f18;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   tr.weektot td.datecell{color:var(--ink-dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;background:#0c1f18}
   tr.weektot .val{font-family:var(--mono);font-size:12px;font-weight:500}
@@ -164,6 +206,11 @@
   .val.prof-green{color:var(--green)}
   .val.prof-orange{color:var(--amber)}
   .val.prof-red{color:var(--red)}
+  /* colori per riga di totale categoria */
+  .val.cat-gray{color:var(--ink-faint)}
+  .val.cat-red{color:var(--red)}
+  .val.cat-orange{color:var(--amber)}
+  .val.cat-green{color:var(--green)}
   tfoot tr.grandtot td.profcell{position:relative}
   tfoot tr.grandtot td.prof-green{box-shadow:inset 0 -3px 0 var(--green)}
   tfoot tr.grandtot td.prof-orange{box-shadow:inset 0 -3px 0 var(--amber)}
@@ -188,12 +235,26 @@
   .mbody{padding:16px 18px}
   .mv{display:flex;align-items:center;gap:8px;margin-bottom:8px}
   .mv .type{font-family:var(--mono);font-size:11px;color:var(--ink-dim);width:64px}
+  .mv .mvtime{font-family:var(--mono);font-size:10px;color:var(--ink-faint);width:38px}
   .mv .amt{font-family:var(--mono);font-weight:500;flex:1}
   .mv .note{color:var(--ink-dim);font-size:12px;flex:2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .mv .del{background:none;border:none;color:var(--ink-faint);cursor:pointer;font-size:15px}
   .mv .del:hover{color:var(--red)}
   .mvlist{border:1px solid var(--line-soft);border-radius:9px;padding:10px;margin-bottom:14px;min-height:40px;background:var(--bg)}
   .mvlist .empty{color:var(--ink-faint);font-size:12px;text-align:center;padding:8px;font-family:var(--mono)}
+  /* promemoria */
+  .remsection{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+  .mv.rem{align-items:center;gap:8px}
+  .mv.rem .remchk{width:16px;height:16px;accent-color:var(--amber);cursor:pointer;flex-shrink:0}
+  .mv.rem .remtxt{font-family:var(--mono);font-size:12.5px;font-weight:500;flex:1}
+  .mv.rem.remdone .remtxt{text-decoration:line-through;opacity:.5}
+  .mv.rem.remdone{opacity:.7}
+  td.cell .remflag{position:absolute;top:1px;right:3px;font-size:11px;cursor:default;z-index:3;line-height:1}
+  td.cell .remflag .celltip{left:auto;right:0;transform:none;top:100%;margin-top:4px;border-color:var(--amber)}
+  td.cell .remflag:hover .celltip{display:block}
+  .remalerts{flex-direction:column;align-items:flex-start;gap:3px!important}
+  .remalert{font-family:var(--mono);font-size:12px;color:var(--amber)}
+  .remalert b{color:var(--ink)}
   .addrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
   .addrow.full{grid-template-columns:1fr}
   input,select{background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:9px 11px;border-radius:8px;font-family:var(--mono);font-size:13px;width:100%}
@@ -206,7 +267,8 @@
   footer.foot{text-align:center;color:var(--ink-faint);font-size:11px;font-family:var(--mono);margin-top:24px}
   .empty-state{text-align:center;padding:50px 20px;color:var(--ink-dim)}
   .empty-state b{color:var(--ink)}
-  .drivebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+  .drivebar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-left:auto}
+  .drivebar .gbtn{padding:6px 12px;font-size:12px}
   .gbtn{white-space:nowrap}
   .drivestatus{font-family:var(--mono);font-size:12px;color:var(--ink-dim)}
 </style>
@@ -216,30 +278,25 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="brand">
+    <div class="titlerow">
       <h1><span class="dot"></span>Profiling Tracker</h1>
-      <div class="sheetctrl">
-        <button id="sPrev" title="Foglio precedente">‹</button>
-        <span class="sname" id="sheetLbl">Io</span>
-        <button id="sNext" title="Foglio successivo">›</button>
-        <button id="settingsBtn" class="gear" title="Impostazioni: fogli e bookmaker">⚙</button>
+      <button id="settingsBtn" class="gear" title="Impostazioni: fogli e bookmaker">⚙</button>
+      <div class="drivebar">
+        <button id="gSignIn" class="btn ghost gbtn">Accedi con Google Drive</button>
+        <button id="gSignOut" class="btn ghost gbtn" style="display:none">Esci da Drive</button>
+        <span id="driveStatus" class="drivestatus">Dati salvati solo su questo dispositivo</span>
       </div>
     </div>
+    <div class="sheettabs" id="sheetTabs"></div>
+  </header>
+
+  <div class="toolbar">
+    <div class="months" id="months"></div>
     <div class="yearctrl">
       <button id="yPrev">‹</button>
       <span class="yr" id="yearLbl">2026</span>
       <button id="yNext">›</button>
     </div>
-  </header>
-
-  <div class="drivebar">
-    <button id="gSignIn" class="btn ghost gbtn">Accedi con Google Drive</button>
-    <button id="gSignOut" class="btn ghost gbtn" style="display:none">Esci da Drive</button>
-    <span id="driveStatus" class="drivestatus">Dati salvati solo su questo dispositivo</span>
-  </div>
-
-  <div class="toolbar">
-    <div class="months" id="months"></div>
     <div class="proflegend">
       <span class="pl"><i class="sw green"></i>profilato</span>
       <span class="pl"><i class="sw orange"></i>parziale</span>
@@ -271,8 +328,10 @@
       <label class="fld">Aggiungi movimento</label>
       <div class="addrow">
         <select id="inType">
+          <option value="ricarica">Ricarica</option>
           <option value="sport">Sport</option>
           <option value="casino">Casinò</option>
+          <option value="casinolive">Casinò Live</option>
         </select>
         <input type="number" id="inAmt" placeholder="€ importo" step="0.01" min="0">
       </div>
@@ -283,6 +342,28 @@
       <div class="daytot">
         <span>Totale giorno</span>
         <span class="n" id="dayTotal">€0.00</span>
+      </div>
+
+      <div class="remsection">
+        <label class="fld">⏰ Promemoria del giorno</label>
+        <div class="mvlist" id="remList"></div>
+        <div class="addrow">
+          <select id="remAction">
+            <option value="ricaricare">Ricaricare</option>
+            <option value="giocare">Giocare</option>
+          </select>
+          <input type="number" id="remAmt" placeholder="€ importo" step="0.01" min="0">
+        </div>
+        <div class="addrow">
+          <select id="remCat">
+            <option value="">— nessuna categoria —</option>
+            <option value="sport">Sport</option>
+            <option value="casino">Casinò</option>
+            <option value="casinolive">Casinò Live</option>
+          </select>
+          <input type="text" id="remNote" placeholder="nota (opz.)">
+        </div>
+        <button class="btn ghost" id="addRemBtn" style="width:100%">+ Aggiungi promemoria</button>
       </div>
     </div>
   </div>
@@ -340,16 +421,28 @@
 const MONTHS=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
 const MONTHS_FULL=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 const DOW=['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
-const SIGN={sport:1,casino:1,multiple:1,arbitraggio:1}; // multiple/arbitraggio: solo per leggere dati vecchi
-const TYPELBL={sport:'Sport',casino:'Casinò',multiple:'Sport',arbitraggio:'Sport'};
+// Categorie di movimento (ordine = ordine in tendina, totali e impostazioni)
+// key: chiave interna salvata nei dati e in minReq; off: flag "disattivata" in minReq
+const CATS=[
+  {key:'ricarica',   label:'Ricarica',    abbr:'Ric',  off:'offRicarica'},
+  {key:'sport',      label:'Sport',       abbr:'Sport',off:'offSport'},
+  {key:'casino',     label:'Casinò',      abbr:'Cas',  off:'offCasino'},
+  {key:'casinolive', label:'Casinò Live', abbr:'Live', off:'offCasinolive'}
+];
+const SIGN={ricarica:1,sport:1,casino:1,casinolive:1,multiple:1,arbitraggio:1}; // multiple/arbitraggio: solo per leggere dati vecchi
+const TYPELBL={ricarica:'Ricarica',sport:'Sport',casino:'Casinò',casinolive:'Casinò Live',multiple:'Sport',arbitraggio:'Sport'};
 
 /* Struttura multi-foglio: ogni foglio è un tracker indipendente
    con i propri bookmaker e dati. Le soglie alert sono globali (in app). */
 function newSheet(name,bookmakers){
   return {
     name:name,
-    bookmakers:bookmakers||['Bet365','Sisal','Snai'],
-    data:{} // key `Y-M-D::bm` -> [{type,amt,note}]
+    bookmakers:bookmakers||['Bet365','Sisal','Snai','WilliamHill','Pokerstar','Lottomatica','Goldbet','Planetwin','Stanleybet','E-Play','Sportium','Betwin','Bwin','Admiralbet','Betsson','Starcasinò','Leovegas','Daznbet','Eurobet','Quigioco','Staryes'],
+    data:{}, // key `Y-M-D::bm` -> [{type,amt,note,time}]
+    reminders:{}, // promemoria manuali: key `Y-M-D::bm` -> [{action,amt,cat,note,done}]
+    gradeByMonth:{}, // grado di profilazione per mese: {"anno-mese":{bookmaker:"VIP"}} — PER PROFILO
+    disabledBm:[], // bookmaker DISATTIVATI in questo profilo (nascosti dalla tabella, riattivabili)
+    disabled:false // foglio DISATTIVATO: nascosto dalla barra profili, dati conservati
   };
 }
 
@@ -358,16 +451,78 @@ let app={
   current:0,            // indice foglio attivo
   warnDays:7,           // soglia avviso (giallo) — globale, tutti i fogli
   alarmDays:14,         // soglia allarme (rosso) — globale, tutti i fogli
-  minReq:{},            // soglie minime profilazione per bookmaker: {nome:{sport,casino}}
+  minReq:{},            // legacy: soglie globali (migrate in minReqByMonth)
+  minReqByMonth:{},     // soglie per mese: {"anno-mese":{bookmaker:{...,grade:"VIP"}}}
   sheets:[newSheet('Io')]
 };
 let view={month:new Date().getMonth()};
+let _pastExpanded=false; // stato apertura della sezione "giorni passati" compressa
+let _futureExpanded=false; // stato apertura della sezione "giorni futuri" compressa
 let modalKey=null;
 // data di "oggi": {y,m,d}. Inizializzata dall'orologio locale, poi confermata da internet se disponibile.
 let todayDate=(()=>{const n=new Date();return{y:n.getFullYear(),m:n.getMonth(),d:n.getDate()};})();
 
 // scorciatoia al foglio attivo
 function sheet(){return app.sheets[app.current];}
+// bookmaker ATTIVI del profilo corrente (esclusi i disattivati) — usati nella tabella
+function activeBookmakers(){
+  const s=sheet();const off=s.disabledBm||[];
+  return s.bookmakers.filter(bm=>!off.includes(bm));
+}
+function isBmDisabled(bm){return (sheet().disabledBm||[]).includes(bm);}
+
+/* ===== Soglie di profilazione PER MESE (snapshot con eredità) =====
+   app.minReqByMonth["anno-mese"][bookmaker] = {ricarica,sport,...,parts,off...}
+   - un mese senza mappa propria EREDITA dal mese precedente che ne ha (risalendo);
+   - l'eredità è "viva": finché il mese non viene modificato, usa quella del mese prima;
+   - alla prima modifica, il mese adotta una copia e diventa indipendente. */
+function monthKey(y,m){return y+'-'+m;}
+// mappa PROPRIA del mese (può non esistere): null se il mese non ha soglie sue
+function ownReqMapRO(y,m){
+  return (app.minReqByMonth&&app.minReqByMonth[monthKey(y,m)])||null;
+}
+// mappa EFFETTIVA del mese: propria se c'è, altrimenti ereditata dal mese precedente.
+// Risale fino a 24 mesi indietro per trovare una mappa non vuota.
+function effectiveReqMap(y,m){
+  let yy=y,mm=m;
+  for(let i=0;i<24;i++){
+    const map=ownReqMapRO(yy,mm);
+    if(map&&Object.keys(map).length)return map;
+    mm--; if(mm<0){mm=11;yy--;}
+  }
+  return {};
+}
+// soglie effettive di UN bookmaker nel mese
+function reqForMonth(y,m,bm){
+  const map=effectiveReqMap(y,m);
+  return map[bm]||{};
+}
+// mappa PROPRIA del mese per SCRITTURA: se non esiste, la crea copiando l'eredità
+// (così modificare un mese non altera i mesi precedenti).
+function ownReqMapRW(y,m){
+  const key=monthKey(y,m);
+  if(!app.minReqByMonth)app.minReqByMonth={};
+  if(!app.minReqByMonth[key]){
+    // copia profonda dell'eredità come punto di partenza
+    const inh=effectiveReqMap(y,m);
+    app.minReqByMonth[key]=JSON.parse(JSON.stringify(inh));
+  }
+  return app.minReqByMonth[key];
+}
+// è un mese PASSATO (precedente al mese corrente reale)? -> impostazioni in sola lettura
+function isPastMonth(y,m){
+  const now=new Date();
+  return (y<now.getFullYear())||(y===now.getFullYear()&&m<now.getMonth());
+}
+// comodità: soglie del mese attualmente visualizzato
+function reqView(bm){return reqForMonth(app.year,view.month,bm);}
+// grado di profilazione del mese visualizzato — SOLO proprio del mese, NON eredita
+// (ogni mese nuovo parte senza grado; i mesi passati conservano il loro)
+function gradeView(bm){
+  const gm=sheet().gradeByMonth;
+  const mk=monthKey(app.year,view.month);
+  return (gm&&gm[mk]&&gm[mk][bm])||'';
+}
 
 /* ---- persistence ----
    localStorage = archivio primario: scrive sul dispositivo, funziona OFFLINE
@@ -386,6 +541,10 @@ function normalizeSheet(s){
       arr.forEach(x=>{if(x.type==='multiple'||x.type==='arbitraggio')x.type='sport';});
     }
   }
+  if(!s.gradeByMonth||typeof s.gradeByMonth!=='object')s.gradeByMonth={};
+  if(!Array.isArray(s.disabledBm))s.disabledBm=[];
+  if(typeof s.disabled!=='boolean')s.disabled=false;
+  if(!s.reminders||typeof s.reminders!=='object')s.reminders={};
   return s;
 }
 function adopt(obj){
@@ -406,10 +565,33 @@ function adopt(obj){
     if(!app.minReq||typeof app.minReq!=='object')app.minReq={};
     // migrazione: rimuovo il vecchio campo 'weeks' (sostituito da 'parts')
     Object.keys(app.minReq).forEach(bm=>{if(app.minReq[bm]&&app.minReq[bm].weeks!=null)delete app.minReq[bm].weeks;});
+    // migrazione a soglie-per-mese: se non esiste ancora, le soglie globali attuali
+    // diventano quelle del MESE CORRENTE reale; i mesi precedenti restano senza soglie.
+    if(!app.minReqByMonth||typeof app.minReqByMonth!=='object'){
+      app.minReqByMonth={};
+      if(app.minReq&&Object.keys(app.minReq).length){
+        const now=new Date();
+        app.minReqByMonth[now.getFullYear()+'-'+now.getMonth()]=app.minReq;
+      }
+    }
     if(app.warnDays==null)app.warnDays=7;
     if(app.alarmDays==null)app.alarmDays=14;
     if(app.alarmDays<app.warnDays)app.alarmDays=app.warnDays;
     if(app.current>=app.sheets.length)app.current=0;
+    // migrazione grado: se i gradi erano salvati in minReqByMonth (globale),
+    // li sposto nel foglio CORRENTE (prima erano condivisi), poi li rimuovo dal globale.
+    if(app.minReqByMonth){
+      const cur=app.sheets[app.current]; if(cur&&!cur.gradeByMonth)cur.gradeByMonth={};
+      for(const mk in app.minReqByMonth){
+        const map=app.minReqByMonth[mk];if(!map)continue;
+        for(const bm in map){
+          if(map[bm]&&map[bm].grade!=null){
+            if(cur){if(!cur.gradeByMonth[mk])cur.gradeByMonth[mk]={};cur.gradeByMonth[mk][bm]=map[bm].grade;}
+            delete map[bm].grade;
+          }
+        }
+      }
+    }
   }else if(obj.data||obj.bookmakers){
     // vecchio formato a foglio singolo -> migro in un foglio "Io"
     const s=newSheet('Io',obj.bookmakers);
@@ -474,7 +656,7 @@ function importBackup(file){
     const n=incoming.sheets.length;
     if(!confirm(`Importare questo backup? Sostituirà TUTTI i dati attuali (${app.sheets.length} fogli) con quelli del file (${n} fogli). Azione irreversibile — esporta prima i dati attuali se vuoi conservarli.`))return;
     // reset e adozione pulita
-    app={year:new Date().getFullYear(),current:0,warnDays:7,alarmDays:14,minReq:{},sheets:[newSheet('Io')]};
+    app={year:new Date().getFullYear(),current:0,warnDays:7,alarmDays:14,minReq:{},minReqByMonth:{},sheets:[newSheet("Io")]};
     adopt(incoming);
     save();
     document.getElementById('setOverlay').classList.remove('on');
@@ -565,7 +747,7 @@ async function onSignedIn(){
         useRemote=false;
       }
       if(useRemote){
-        app={year:new Date().getFullYear(),current:0,warnDays:7,alarmDays:14,minReq:{},sheets:[newSheet('Io')]};
+        app={year:new Date().getFullYear(),current:0,warnDays:7,alarmDays:14,minReq:{},minReqByMonth:{},sheets:[newSheet("Io")]};
         adopt(remote);persistLocal();renderAll();
         driveLog('Dati caricati da Drive.');
       }else{
@@ -648,6 +830,16 @@ function cellTotal(y,m,d,bm){
   return a.reduce((s,x)=>s+SIGN[x.type]*(+x.amt||0),0);
 }
 function cellCount(y,m,d,bm){return (sheet().data[keyOf(y,m,d,bm)]||[]).length;}
+// totali per categoria di una singola cella (giorno+bookmaker)
+function cellByType(y,m,d,bm){
+  const a=sheet().data[keyOf(y,m,d,bm)]||[];
+  const out={ricarica:0,sport:0,casino:0,casinolive:0};
+  a.forEach(x=>{
+    const t=(x.type==='multiple'||x.type==='arbitraggio')?'sport':x.type;
+    if(out[t]!=null)out[t]+=SIGN[x.type]*(+x.amt||0);
+  });
+  return out;
+}
 function daysInMonth(y,m){return new Date(y,m+1,0).getDate();}
 // numero della settimana ISO 8601 dell'anno per una data
 function isoWeek(dt){
@@ -663,7 +855,7 @@ function valClass(n){return n>0.0001?'pos':n<-0.0001?'neg':'zero';}
 // totali mensili di un bookmaker suddivisi per tipo
 function monthTotalsByType(y,m,bm){
   const nd=daysInMonth(y,m);
-  const out={sport:0,casino:0};
+  const out={ricarica:0,sport:0,casino:0,casinolive:0};
   for(let d=1;d<=nd;d++){
     const a=sheet().data[keyOf(y,m,d,bm)]||[];
     a.forEach(x=>{
@@ -689,9 +881,18 @@ function monthBlockSizes(days,parts){
 // Restituisce {from,to} del blocco di profilazione corrente per un bookmaker.
 // Ancorato SEMPRE al mese corrente reale (gli alert riguardano "adesso").
 function currentBlock(bm){
-  const parts=Math.max(1,Math.min(4,(app.minReq&&app.minReq[bm]&&+app.minReq[bm].parts)||1));
   const now=new Date();now.setHours(0,0,0,0);
   const y=now.getFullYear(), m=now.getMonth();
+  const partsRaw=reqForMonth(y,m,bm).parts;
+  // parts === 0  -> blocco BIMESTRALE fisso ancorato all'anno
+  // (Gen-Feb, Mar-Apr, Mag-Giu, Lug-Ago, Set-Ott, Nov-Dic)
+  if(+partsRaw===0){
+    const startM=Math.floor(m/2)*2;           // 0,2,4,6,8,10
+    const from=new Date(y,startM,1);from.setHours(0,0,0,0);
+    const to=new Date(y,startM+2,0);to.setHours(0,0,0,0); // ultimo giorno del 2° mese
+    return {from,to};
+  }
+  const parts=Math.max(1,Math.min(4,(+partsRaw)||1));
   const nd=daysInMonth(y,m);
   const sizes=monthBlockSizes(nd,parts);
   // costruisco i blocchi come intervalli di giorni del mese
@@ -709,41 +910,70 @@ function currentBlock(bm){
   if(!blk)blk=blocks[blocks.length-1];
   return blk;
 }
-// totali Multiple/Casinò dentro il blocco corrente del bookmaker
-function blockTotals(bm){
-  const blk=currentBlock(bm);
-  let sport=0,casino=0; // 'sport' qui = multiple
+// somma i movimenti di un bookmaker in un intervallo [from,to]
+function sumRange(bm,from,to){
+  const out={ricarica:0,sport:0,casino:0,casinolive:0};
   const d=sheet().data;
   for(const k in d){
     if(!k.endsWith('::'+bm))continue;
     const[dpart]=k.split('::');const[yy,mm,dd]=dpart.split('-').map(Number);
     const dt=new Date(yy,mm,dd);dt.setHours(0,0,0,0);
-    if(dt<blk.from||dt>blk.to)continue;
+    if(dt<from||dt>to)continue;
     (d[k]||[]).forEach(x=>{
-      const v=SIGN[x.type]*(+x.amt||0);
-      if(x.type==='casino')casino+=v; else if(x.type==='sport'||x.type==='multiple'||x.type==='arbitraggio')sport+=v;
+      const t=(x.type==='multiple'||x.type==='arbitraggio')?'sport':x.type;
+      if(out[t]!=null)out[t]+=SIGN[x.type]*(+x.amt||0);
     });
   }
-  return {sport,casino,from:blk.from,to:blk.to};
+  return out;
 }
-// compat: profilingStatus/alert usano i totali del blocco corrente
+// totali per categoria dentro il blocco corrente (alert "adesso", mese reale)
+function blockTotals(bm){
+  const blk=currentBlock(bm);
+  const out=sumRange(bm,blk.from,blk.to);
+  out.from=blk.from;out.to=blk.to;
+  return out;
+}
+// totali per categoria usati per i COLORI del mese visualizzato:
+// - mese corrente reale -> blocco che contiene oggi
+// - altri mesi (storico) -> intero mese visualizzato
+function colorTotals(bm){
+  const y=app.year,m=view.month;
+  const now=new Date();
+  const isReal=(y===now.getFullYear()&&m===now.getMonth());
+  if(isReal)return blockTotals(bm);
+  const from=new Date(y,m,1);from.setHours(0,0,0,0);
+  const to=new Date(y,m,daysInMonth(y,m));to.setHours(0,0,0,0);
+  return sumRange(bm,from,to);
+}
+// compat: alert usano i totali del blocco corrente
 function windowTotals(bm){return blockTotals(bm);}
 // helper: anno corrente dello stato app
 function state_year(){return app.year;}
-// stato profilazione: 'green' | 'orange' | 'red' | null (se nessuna categoria attiva con soglia)
+// categorie attive per un bookmaker (non disattivate e con soglia > 0)
+function activeCats(req){
+  return CATS.filter(c=>!req[c.off] && (+req[c.key]||0)>0);
+}
+// stato profilazione del mese visualizzato: 'green' | 'orange' | 'red' | null
 function profilingStatus(bm){
-  const req=(app.minReq&&app.minReq[bm])||{};
-  // una categoria conta solo se NON disattivata e con soglia > 0
-  const useSport=!req.offSport && (+req.sport||0)>0;
-  const useCasino=!req.offCasino && (+req.casino||0)>0;
-  if(!useSport && !useCasino)return null; // niente da valutare -> nessun colore forzato
-  const w=blockTotals(bm);
-  const checks=[];
-  if(useSport)checks.push(w.sport>=(+req.sport));
-  if(useCasino)checks.push(w.casino>=(+req.casino));
-  const passed=checks.filter(Boolean).length;
-  if(passed===checks.length)return 'green';
+  const req=reqView(bm);
+  const act=activeCats(req);
+  if(!act.length)return null; // niente da valutare -> nessun colore forzato
+  const w=colorTotals(bm);
+  const passed=act.filter(c=>w[c.key]>=(+req[c.key])).length;
+  if(passed===act.length)return 'green';
   if(passed===0)return 'red';
+  return 'orange';
+}
+// stato colore di UNA categoria (soglie del mese visualizzato):
+// 'gray'=non attiva | 'red'=attiva senza movimenti | 'orange'=sotto soglia | 'green'=raggiunta
+function catStatus(bm,catKey,wTotals){
+  const req=reqView(bm);
+  const c=CATS.find(x=>x.key===catKey);
+  const active=c && !req[c.off] && (+req[catKey]||0)>0;
+  if(!active)return 'gray';
+  const val=wTotals[catKey]||0;
+  if(val<=0)return 'red';
+  if(val>=(+req[catKey]))return 'green';
   return 'orange';
 }
 
@@ -757,48 +987,118 @@ function renderMonths(){
     const isCurrent=(i===curMonth && app.year===curYear);
     b.className='mtab'+(i===view.month?' on':'')+(isCurrent?' current':'');
     b.textContent=m;
-    b.onclick=()=>{view.month=i;renderAll();};
+    b.onclick=()=>{view.month=i;_pastExpanded=false;_futureExpanded=false;renderAll();};
     c.appendChild(b);
   });
 }
+// lista dei fogli come pulsanti; quello attivo evidenziato in ciano
+function renderSheetTabs(){
+  const c=document.getElementById('sheetTabs');if(!c)return;c.innerHTML='';
+  app.sheets.forEach((s,i)=>{
+    if(s.disabled)return; // i fogli disattivati non compaiono nella barra
+    const b=document.createElement('button');
+    b.className='stab'+(i===app.current?' on':'');
+    b.textContent=s.name;
+    b.onclick=()=>{if(i!==app.current){app.current=i;view.month=new Date().getMonth();_pastExpanded=false;_futureExpanded=false;save();renderAll();}};
+    c.appendChild(b);
+  });
+}
+// indice del primo foglio attivo (non disattivato); -1 se nessuno
+function firstActiveSheet(){return app.sheets.findIndex(s=>!s.disabled);}
 
 /* ---- render grid ---- */
 function renderGrid(){
   const y=app.year,m=view.month,nd=daysInMonth(y,m);
   const t=document.getElementById('grid');
-  const bms=sheet().bookmakers;
+  const bms=activeBookmakers(); // solo i bookmaker attivi nel profilo
   let h='<thead><tr><th class="datecell" style="position:sticky;left:0;text-align:left;padding-left:10px">'+MONTHS_FULL[m]+'</th>';
   bms.forEach((bm,bi)=>{
-    const req=(app.minReq&&app.minReq[bm])||{};
-    const off=[];
-    if(req.offSport)off.push('NO Sport');
-    if(req.offCasino)off.push('NO Casinò');
+    const req=reqView(bm);
+    const off=CATS.filter(c=>req[c.off]).map(c=>'NO '+c.label);
     const tag=off.length?`<div class="bmoff">${off.join(' · ')}</div>`:'';
-    h+=`<th class="bm"><div class="bmname">${escapeHtml(bm)}</div>${tag}</th>`;
+    const grade=gradeView(bm);
+    const gradeTag=grade?`<div class="bmgrade">Profilato con grado: <b>${escapeHtml(grade)}</b></div>`:'';
+    h+=`<th class="bm"><div class="bmname">${escapeHtml(bm)}</div>${gradeTag}${tag}</th>`;
   });
   h+='</tr></thead><tbody>';
 
   let monthTotals=new Array(bms.length).fill(0);
   let weekTotals=new Array(bms.length).fill(0);
   let weekHasData=false;
+  const colCount=bms.length+1;
+
+  // Compressione giorni passati/futuri: attiva solo nel mese corrente.
+  const isCurrentMonth=(y===todayDate.y&&m===todayDate.m);
+  const collapseUntil=(isCurrentMonth&&todayDate.d>1)?todayDate.d-1:0;   // ultimo giorno "passato" da comprimere
+  const collapsed=(collapseUntil>0)&&(_pastExpanded!==true);
+  const futureFrom=(isCurrentMonth&&todayDate.d<nd)?todayDate.d+1:0;     // primo giorno "futuro" da comprimere
+  const futCollapsed=(futureFrom>0)&&(_futureExpanded!==true);
+  let futureToggleInserted=false;
+
+  // riga toggle passati, in cima se c'è qualcosa da comprimere
+  if(collapseUntil>0){
+    h+=`<tr class="pasttoggle"><td class="datecell" colspan="${colCount}" id="pastToggleCell">`
+      +`${collapsed?'▸':'▾'} giorni 01–${String(collapseUntil).padStart(2,'0')} ${collapsed?'(mostra)':'(nascondi)'}`
+      +`</td></tr>`;
+  }
 
   for(let d=1;d<=nd;d++){
     const dt=new Date(y,m,d);const dow=dt.getDay();
     const weekend=(dow===0||dow===6);
     const isToday=(y===todayDate.y&&m===todayDate.m&&d===todayDate.d);
-    h+=`<tr class="${weekend?'weekend':''}${isToday?' today':''}">`;
+    const isPast=(d<=collapseUntil);
+    const isFuture=(futureFrom>0&&d>=futureFrom);
+    // inserisco la riga toggle-futuri appena prima del primo giorno futuro
+    if(isFuture&&!futureToggleInserted){
+      h+=`<tr class="pasttoggle futtoggle"><td class="datecell" colspan="${colCount}" id="futureToggleCell">`
+        +`${futCollapsed?'▸':'▾'} giorni ${String(futureFrom).padStart(2,'0')}–${String(nd).padStart(2,'0')} ${futCollapsed?'(mostra)':'(nascondi)'}`
+        +`</td></tr>`;
+      futureToggleInserted=true;
+    }
+    const hideRow=(collapsed&&isPast)||(futCollapsed&&isFuture);
+    h+=`<tr class="${weekend?'weekend':''}${isToday?' today':''}${isPast?' pastrow':''}${isFuture?' futrow':''}"${hideRow?' style="display:none"':''}>`;
     h+=`<td class="datecell">${String(d).padStart(2,'0')}/${String(m+1).padStart(2,'0')}<span class="dow">${DOW[dow]}</span>${isToday?'<span class="todaytag">oggi</span>':''}</td>`;
     bms.forEach((bm,bi)=>{
       const tot=cellTotal(y,m,d,bm);const cnt=cellCount(y,m,d,bm);
       monthTotals[bi]+=tot;weekTotals[bi]+=tot;if(cnt)weekHasData=true;
-      const inner=cnt?`<span class="val ${valClass(tot)}">${eur(tot)}</span>${cnt>1?`<span class="cnt">${cnt}</span>`:''}`:'';
-      h+=`<td class="cell ${cnt?'':'empty'}" data-d="${d}" data-bm="${bi}">${inner}</td>`;
+      let inner='';
+      if(cnt){
+        const ct=cellByType(y,m,d,bm);
+        const arr=sheet().data[keyOf(y,m,d,bm)]||[];
+        // una riga per categoria con importo diverso da zero, colorata per categoria.
+        // Ogni riga ha un tooltip con i singoli movimenti di quella categoria (ora · importo · nota).
+        const lines=CATS.filter(c=>ct[c.key]!==0).map(c=>{
+          const movs=arr.filter(x=>{const t=(x.type==='multiple'||x.type==='arbitraggio')?'sport':x.type;return t===c.key;});
+          const tip=movs.map(x=>{
+            const tm=x.time?`<span class="tt-time">${escapeHtml(x.time)}</span>`:'<span class="tt-time">—</span>';
+            const nt=x.note?`<span class="tt-note">${escapeHtml(x.note)}</span>`:'';
+            return `<span class="tt-row">${tm}<span class="tt-amt">${eur(SIGN[x.type]*(+x.amt||0))}</span>${nt}</span>`;
+          }).join('');
+          const ttbox=movs.length?`<span class="celltip"><span class="tt-h">${escapeHtml(c.label)}</span>${tip}</span>`:'';
+          return `<span class="cl">${ttbox}<span class="cl-k cat-${c.key}">${c.abbr}</span><span class="cl-v">${eur(ct[c.key])}</span></span>`;
+        }).join('');
+        inner=`<div class="celldetail">${lines}</div>`;
+      }
+      // segno promemoria: ⏰ se ci sono promemoria non completati in questo giorno/bookmaker
+      const remHere=((sheet().reminders&&sheet().reminders[keyOf(y,m,d,bm)])||[]).filter(r=>!r.done);
+      let remTag='';
+      if(remHere.length){
+        const tip=remHere.map(r=>`<span class="tt-row"><span class="tt-amt">${escapeHtml(reminderText(r))}</span>${r.note?`<span class="tt-note">${escapeHtml(r.note)}</span>`:''}</span>`).join('');
+        remTag=`<span class="remflag">⏰<span class="celltip"><span class="tt-h">Promemoria</span>${tip}</span></span>`;
+      }
+      h+=`<td class="cell ${(cnt||remHere.length)?'':'empty'}" data-d="${d}" data-bm="${bi}">${remTag}${inner}</td>`;
     });
     h+='</tr>';
     // end of week (Sunday) or last day -> week total row
     if(dow===0||d===nd){
       const wk=isoWeek(new Date(y,m,d));
-      h+=`<tr class="weektot"><td class="datecell">Settimana ${wk}</td>`;
+      // la riga settimana si nasconde se l'intera settimana è nel passato o nel futuro compresso
+      const weekAllPast=collapsed&&(d<=collapseUntil);
+      // la riga settimana è "tutta futura" se il suo primo giorno >= futureFrom
+      const weekStartDay=Math.max(1,d-((dow===0?7:dow)-1));
+      const weekFuture=futCollapsed&&futureFrom>0&&weekStartDay>=futureFrom;
+      const hideWeek=weekAllPast||weekFuture;
+      h+=`<tr class="weektot${weekAllPast?' pastrow':''}${weekFuture?' futrow':''}"${hideWeek?' style="display:none"':''}><td class="datecell">Settimana ${wk}</td>`;
       bms.forEach((bm,bi)=>{
         h+=`<td><span class="val ${valClass(weekTotals[bi])}">${weekHasData||weekTotals[bi]!==0?eur(weekTotals[bi]):'—'}</span></td>`;
       });
@@ -807,17 +1107,20 @@ function renderGrid(){
     }
   }
   h+='</tbody><tfoot>';
-  // pre-calcolo i totali per categoria di ogni bookmaker
+  // pre-calcolo i totali MENSILI (numero mostrato) e del BLOCCO corrente (colore) per ogni bookmaker
   const byType=bms.map((bm)=>monthTotalsByType(y,m,bm));
+  const byBlock=bms.map((bm)=>colorTotals(bm));
   const mLbl=MONTHS[m].toUpperCase();
-  // riga: TOT. CASINÒ
-  h+=`<tr class="cattot"><td class="datecell">Tot. Casinò ${mLbl}</td>`;
-  byType.forEach(tt=>{h+=`<td><span class="val ${valClass(tt.casino)}">${eur(tt.casino)}</span></td>`;});
-  h+='</tr>';
-  // riga: TOT. SPORT
-  h+=`<tr class="cattot sporthead"><td class="datecell">Tot. Sport ${mLbl}</td>`;
-  byType.forEach(tt=>{h+=`<td><span class="val ${valClass(tt.sport)}">${eur(tt.sport)}</span></td>`;});
-  h+='</tr>';
+  // una riga di totale per categoria, nell'ordine di CATS
+  // colore: grigio=non attiva, rosso=attiva senza movimenti, giallo=sotto soglia, verde=raggiunta
+  CATS.forEach((c,ci)=>{
+    h+=`<tr class="cattot${ci===0?' sporthead':''}"><td class="datecell">Tot. ${c.label} ${mLbl}</td>`;
+    byType.forEach((tt,bi)=>{
+      const cs=catStatus(bms[bi],c.key,byBlock[bi]); // gray|red|orange|green
+      h+=`<td><span class="val cat-${cs}">${eur(tt[c.key])}</span></td>`;
+    });
+    h+='</tr>';
+  });
   // riga totale generale — colore secondo profilazione (verde/arancione/rosso)
   h+='<tr class="grandtot"><td class="datecell">Tot. '+MONTHS[m]+'</td>';
   bms.forEach((bm,bi)=>{
@@ -832,6 +1135,10 @@ function renderGrid(){
   t.querySelectorAll('td.cell').forEach(td=>{
     td.onclick=()=>openDay(+td.dataset.d,+td.dataset.bm);
   });
+  const ptc=document.getElementById('pastToggleCell');
+  if(ptc)ptc.onclick=()=>{_pastExpanded=!_pastExpanded;renderGrid();};
+  const ftc=document.getElementById('futureToggleCell');
+  if(ftc)ftc.onclick=()=>{_futureExpanded=!_futureExpanded;renderGrid();};
   syncScrollbar();
 }
 
@@ -860,7 +1167,7 @@ function renderAlerts(){
   const box=document.getElementById('alerts');box.innerHTML='';
   const today=new Date();today.setHours(0,0,0,0);
   const warn=app.warnDays, alarm=app.alarmDays;
-  sheet().bookmakers.forEach(bm=>{
+  activeBookmakers().forEach(bm=>{
     let last=null;
     for(const k in sheet().data){
       if(!k.endsWith('::'+bm))continue;
@@ -872,30 +1179,23 @@ function renderAlerts(){
     const diff=last?Math.floor((today-last)/86400000):null;
     const timeAlert=(diff!=null&&diff>=warn);
 
-    // --- profilazione: quanto manca nel blocco corrente ---
-    const req=(app.minReq&&app.minReq[bm])||{};
-    const useMult=!req.offSport && (+req.sport||0)>0;
-    const useCas=!req.offCasino && (+req.casino||0)>0;
+    // --- profilazione: quanto manca nel blocco corrente (mese reale) ---
+    const _now=new Date();
+    const req=reqForMonth(_now.getFullYear(),_now.getMonth(),bm);
+    const act=activeCats(req);
     let profParts=null, profMissing=false, blockTo=null, daysLeft=null;
-    if(useMult||useCas){
+    if(act.length){
       const w=blockTotals(bm);
       blockTo=w.to;
       daysLeft=Math.round((w.to-today)/86400000); // giorni rimanenti alla scadenza (incluso oggi=0)
       const parts=[];
-      if(useMult){
-        const miss=(+req.sport)-w.sport;
+      act.forEach(c=>{
+        const miss=(+req[c.key])-w[c.key];
         if(miss>0)profMissing=true;
         parts.push(miss>0
-          ?`<span class="miss">Sport: mancano <b>${eur(miss)}</b></span>`
-          :`<span class="ok">Sport ✓ (${eur(w.sport)}/${eur(+req.sport)})</span>`);
-      }
-      if(useCas){
-        const miss=(+req.casino)-w.casino;
-        if(miss>0)profMissing=true;
-        parts.push(miss>0
-          ?`<span class="miss">Casinò: mancano <b>${eur(miss)}</b></span>`
-          :`<span class="ok">Casinò ✓ (${eur(w.casino)}/${eur(+req.casino)})</span>`);
-      }
+          ?`<span class="miss">${c.label}: mancano <b>${eur(miss)}</b></span>`
+          :`<span class="ok">${c.label} ✓ (${eur(w[c.key])}/${eur(+req[c.key])})</span>`);
+      });
       profParts=parts;
     }
 
@@ -927,6 +1227,30 @@ function renderAlerts(){
     div.innerHTML=html;
     box.appendChild(div);
   });
+
+  // --- promemoria manuali pendenti (non completati) del profilo corrente ---
+  const remAll=[];
+  const rd=sheet().reminders||{};
+  for(const k in rd){
+    const[dpart,bm]=k.split('::');
+    const[yy,mm,dd]=dpart.split('-').map(Number);
+    (rd[k]||[]).forEach((r,idx)=>{if(!r.done)remAll.push({r,bm,yy,mm,dd,k,idx});});
+  }
+  if(remAll.length){
+    // ordino per data crescente
+    remAll.sort((a,b)=>new Date(a.yy,a.mm,a.dd)-new Date(b.yy,b.mm,b.dd));
+    const div=document.createElement('div');
+    div.className='alert warn';
+    let html=`<div class="alertmain"><span>⏰</span><span><b>${remAll.length}</b> promemoria da fare</span></div>`;
+    html+='<div class="alertsub remalerts">'+remAll.map(o=>{
+      const dt=String(o.dd).padStart(2,'0')+'/'+String(o.mm+1).padStart(2,'0');
+      const note=o.r.note?' — '+escapeHtml(o.r.note):'';
+      return `<span class="remalert"><b>${dt}</b> ${escapeHtml(o.bm)}: ${escapeHtml(reminderText(o.r))}${note}</span>`;
+    }).join('<span class="sep">·</span>')+'</div>';
+    div.innerHTML=html;
+    box.appendChild(div);
+  }
+
   if(!box.children.length){
     box.innerHTML=`<div class="alert warn" style="background:#0d2018;border-color:#1e3a30;color:var(--ink-dim)"><div class="alertmain"><span>✓</span><span>Tutto a posto: nessuna inattività oltre soglia e profilazioni complete</span></div></div>`;
   }
@@ -953,13 +1277,54 @@ function renderModal(){
   else{
     list.innerHTML=arr.map((x,i)=>{
       const v=SIGN[x.type]*(+x.amt||0);
-      return `<div class="mv"><span class="type">${TYPELBL[x.type]}</span><span class="amt ${valClass(v)}">${eur(v)}</span><span class="note">${escapeHtml(x.note||'')}</span><button class="del" data-i="${i}">×</button></div>`;
+      const tm=x.time?`<span class="mvtime">${escapeHtml(x.time)}</span>`:'';
+      return `<div class="mv"><span class="type">${TYPELBL[x.type]}</span>${tm}<span class="amt ${valClass(v)}">${eur(v)}</span><span class="note">${escapeHtml(x.note||'')}</span><button class="del" data-i="${i}">×</button></div>`;
     }).join('');
     list.querySelectorAll('.del').forEach(b=>b.onclick=()=>{arr.splice(+b.dataset.i,1);if(!arr.length)delete sheet().data[k];save();renderModal();renderAll();});
   }
   const tot=arr.reduce((s,x)=>s+SIGN[x.type]*(+x.amt||0),0);
   const dt=document.getElementById('dayTotal');
   dt.textContent=eur(tot);dt.className='n '+valClass(tot);
+  renderReminders();
+}
+// testo leggibile di un promemoria
+function reminderText(r){
+  const act=r.action==='ricaricare'?'Ricaricare':'Giocare';
+  const amt=r.amt?' '+eur(+r.amt):'';
+  const cat=r.cat?(' a '+(CATS.find(c=>c.key===r.cat)||{}).label):'';
+  return act+amt+cat;
+}
+function renderReminders(){
+  const{d,bm}=modalKey;
+  const k=keyOf(app.year,view.month,d,bm);
+  const arr=(sheet().reminders&&sheet().reminders[k])||[];
+  const list=document.getElementById('remList');
+  if(!arr.length){list.innerHTML='<div class="empty">nessun promemoria</div>';return;}
+  list.innerHTML=arr.map((r,i)=>{
+    const catCls=r.cat?('cat-'+r.cat):'';
+    return `<div class="mv rem ${r.done?'remdone':''}">
+      <input type="checkbox" class="remchk" data-i="${i}" ${r.done?'checked':''} title="Segna come fatto">
+      <span class="remtxt ${catCls}">${escapeHtml(reminderText(r))}</span>
+      <span class="note">${escapeHtml(r.note||'')}</span>
+      <button class="del" data-i="${i}">×</button>
+    </div>`;
+  }).join('');
+  list.querySelectorAll('.remchk').forEach(c=>c.onchange=()=>{arr[+c.dataset.i].done=c.checked;save();renderModal();renderAll();});
+  list.querySelectorAll('.del').forEach(b=>b.onclick=()=>{arr.splice(+b.dataset.i,1);if(!arr.length)delete sheet().reminders[k];save();renderModal();renderAll();});
+}
+function addReminder(){
+  const action=document.getElementById('remAction').value;
+  const amt=parseFloat(document.getElementById('remAmt').value);
+  const cat=document.getElementById('remCat').value;
+  const note=document.getElementById('remNote').value.trim();
+  if(isNaN(amt)||amt<=0){document.getElementById('remAmt').focus();return;} // l'importo è richiesto
+  const{d,bm}=modalKey;const k=keyOf(app.year,view.month,d,bm);
+  if(!sheet().reminders)sheet().reminders={};
+  if(!sheet().reminders[k])sheet().reminders[k]=[];
+  sheet().reminders[k].push({action,amt:Math.abs(amt),cat,note,done:false});
+  document.getElementById('remAmt').value='';
+  document.getElementById('remNote').value='';
+  save();renderModal();renderAll();
 }
 function addMovement(){
   const type=document.getElementById('inType').value;
@@ -968,7 +1333,9 @@ function addMovement(){
   if(isNaN(amt)||amt<=0){document.getElementById('inAmt').focus();return;}
   const{d,bm}=modalKey;const k=keyOf(app.year,view.month,d,bm);
   if(!sheet().data[k])sheet().data[k]=[];
-  sheet().data[k].push({type,amt:Math.abs(amt),note});
+  const now=new Date();
+  const time=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  sheet().data[k].push({type,amt:Math.abs(amt),note,time});
   document.getElementById('inAmt').value='';
   document.getElementById('inNote').value='';
   document.getElementById('inAmt').focus();
@@ -980,17 +1347,39 @@ function addBm(){
   const inp=document.getElementById('newBmName');
   const n=(inp.value||'').trim();
   if(!n){inp.focus();return;}
-  if(sheet().bookmakers.includes(n)){alert('Bookmaker già presente.');return;}
-  app.sheets.forEach(s=>{if(!s.bookmakers.includes(n))s.bookmakers.push(n);});
+  const existsEverywhere=app.sheets.every(s=>s.bookmakers.includes(n));
+  const existsHereActive=sheet().bookmakers.includes(n)&&!isBmDisabled(n);
+  if(existsEverywhere&&existsHereActive){alert('Bookmaker già presente e attivo.');return;}
+  // aggiungo dove manca e RIATTIVO dove era disattivato (creazione globale)
+  app.sheets.forEach(s=>{
+    if(!s.bookmakers.includes(n))s.bookmakers.push(n);
+    if(Array.isArray(s.disabledBm)){const i=s.disabledBm.indexOf(n);if(i>-1)s.disabledBm.splice(i,1);}
+  });
   inp.value='';
   save();renderBmList();renderAll();
 }
 function removeBm(name){
-  if(!confirm(`Rimuovere "${name}" da TUTTI i fogli? I movimenti già registrati resteranno salvati ma non visibili.`))return;
+  if(!confirm(`Rimuovere "${name}" da TUTTI i profili? I movimenti già registrati resteranno salvati ma non visibili.`))return;
   app.sheets.forEach(s=>{
     const i=s.bookmakers.indexOf(name);
     if(i>-1)s.bookmakers.splice(i,1);
   });
+  save();renderBmList();renderAll();
+}
+// disattiva/riattiva il bookmaker SOLO nel profilo attivo (reversibile, nessun dato perso)
+function toggleBmSheet(name){
+  const s=sheet();
+  if(!Array.isArray(s.disabledBm))s.disabledBm=[];
+  const i=s.disabledBm.indexOf(name);
+  if(i>-1){
+    // riattiva
+    s.disabledBm.splice(i,1);
+  }else{
+    // disattiva — ma deve restarne almeno uno attivo nel profilo
+    const activeCount=s.bookmakers.filter(bm=>!s.disabledBm.includes(bm)).length;
+    if(activeCount<=1){alert('Deve restare almeno un bookmaker attivo nel profilo.');return;}
+    s.disabledBm.push(name);
+  }
   save();renderBmList();renderAll();
 }
 function renameBm(oldName){
@@ -1014,79 +1403,138 @@ function renameBm(oldName){
       }
     });
   });
-  // migro la soglia di profilazione
+  // migro le soglie di profilazione in tutte le mappe mensili (e nella legacy)
   if(app.minReq&&app.minReq[oldName]){app.minReq[neo]=app.minReq[oldName];delete app.minReq[oldName];}
+  if(app.minReqByMonth){
+    Object.values(app.minReqByMonth).forEach(map=>{
+      if(map&&map[oldName]){map[neo]=map[oldName];delete map[oldName];}
+    });
+  }
+  // migro il grado (per profilo) in ogni foglio, in tutti i mesi
+  app.sheets.forEach(s=>{
+    if(!s.gradeByMonth)return;
+    for(const mk in s.gradeByMonth){
+      const gm=s.gradeByMonth[mk];
+      if(gm&&gm[oldName]!=null){gm[neo]=gm[oldName];delete gm[oldName];}
+    }
+  });
   save();renderBmList();renderAll();
 }
 function renderBmList(){
   const box=document.getElementById('bmList');
   const bms=sheet().bookmakers;
-  if(!bms.length){box.innerHTML='<div class="empty">nessun bookmaker — aggiungine uno sotto</div>';return;}
-  box.innerHTML=bms.map(bm=>{
-    const req=(app.minReq&&app.minReq[bm])||{};
-    const vs=(req.sport!=null?req.sport:'');
-    const vc=(req.casino!=null?req.casino:'');
-    const offS=!!req.offSport, offC=!!req.offCasino;
+  const readOnly=isPastMonth(app.year,view.month); // mese passato -> sola lettura
+  // banner con il mese di cui si stanno impostando le soglie
+  const mTag=`<div class="mrmonth">Soglie di <b>${MONTHS_FULL[view.month]} ${app.year}</b>${readOnly?' · <span class="ro">mese passato (sola lettura)</span>':''}</div>`;
+  if(!bms.length){box.innerHTML=mTag+'<div class="empty">nessun bookmaker — aggiungine uno sotto</div>';return;}
+  const dis=readOnly?'disabled':'';
+  box.innerHTML=mTag+bms.map((bm,bmIdx)=>{
+    const req=reqView(bm); // soglie EFFETTIVE del mese visualizzato (proprie o ereditate)
+    const bmE=escapeHtml(bm);
+    const cats=CATS.map(c=>{
+      const val=(req[c.key]!=null?req[c.key]:'');
+      const isOff=!!req[c.off];
+      return `<label class="mrcat ${isOff?'off':''}">
+          <input type="checkbox" class="mrtog" data-tog="${c.off}" data-bm="${bmE}" ${isOff?'':'checked'} ${dis}>
+          ${c.label} <input type="number" min="0" step="1" class="mrin" data-mr="${c.key}" data-bm="${bmE}" value="${val}" placeholder="—" ${(isOff||readOnly)?'disabled':''}>
+        </label>`;
+    }).join('');
+    const grade=gradeView(bm);
+    const disabledHere=isBmDisabled(bm);
     return `
-    <div class="bmitem">
+    <div class="bmitem draggable${disabledHere?' bmdisabled':''}" data-idx="${bmIdx}">
       <div class="sheetrow" style="border:none;padding:6px 4px 2px">
-        <span class="nm" data-renbm="${escapeHtml(bm)}">${escapeHtml(bm)}</span>
-        <button class="act" data-renbm2="${escapeHtml(bm)}">rinomina</button>
-        <button class="act del" data-rmbm="${escapeHtml(bm)}">rimuovi</button>
+        <span class="draghandle" title="Trascina dalla maniglia per riordinare">⠿</span>
+        <span class="nm" data-renbm="${bmE}">${bmE}${disabledHere?' <span class="offbadge">disattivato</span>':''}</span>
+        <button class="act" data-renbm2="${bmE}">rinomina</button>
+        <button class="act ${disabledHere?'on':''}" data-togbm="${bmE}" title="${disabledHere?'Riattiva in questo profilo':'Disattiva in questo profilo (reversibile)'}">${disabledHere?'riattiva':'disattiva'}</button>
+        <button class="act del" data-rmbm="${bmE}" title="Rimuovi da tutti i profili">rimuovi</button>
+      </div>
+      <div class="gradeRow">
+        <span class="mrl">grado di profilazione</span>
+        <input type="text" class="mrgrade" data-bm="${bmE}" value="${escapeHtml(grade)}" placeholder="es. VIP, Gold, Livello 3…" maxlength="40" ${dis}>
       </div>
       <div class="minreq">
         <span class="mrl">profila per</span>
-        <select class="mrparts" data-bm="${escapeHtml(bm)}">
-          <option value="4"${(+req.parts||1)===4?' selected':''}>Quarto di mese</option>
-          <option value="2"${(+req.parts||1)===2?' selected':''}>Metà mese</option>
-          <option value="1"${(+req.parts||1)===1?' selected':''}>Mese intero</option>
+        <select class="mrparts" data-bm="${bmE}" ${dis}>
+          <option value="4"${req.parts==4?' selected':''}>Quarto di mese</option>
+          <option value="2"${req.parts==2?' selected':''}>Metà mese</option>
+          <option value="1"${(req.parts==null||req.parts==1)?' selected':''}>Mese intero</option>
+          <option value="0"${req.parts==0?' selected':''}>Due mesi</option>
         </select>
         <span class="mrl">— min. € per blocco:</span>
-        <label class="mrcat ${offS?'off':''}">
-          <input type="checkbox" class="mrtog" data-tog="offSport" data-bm="${escapeHtml(bm)}" ${offS?'':'checked'}>
-          Sport <input type="number" min="0" step="1" class="mrin" data-mr="sport" data-bm="${escapeHtml(bm)}" value="${vs}" placeholder="—" ${offS?'disabled':''}>
-        </label>
-        <label class="mrcat ${offC?'off':''}">
-          <input type="checkbox" class="mrtog" data-tog="offCasino" data-bm="${escapeHtml(bm)}" ${offC?'':'checked'}>
-          Casinò <input type="number" min="0" step="1" class="mrin" data-mr="casino" data-bm="${escapeHtml(bm)}" value="${vc}" placeholder="—" ${offC?'disabled':''}>
-        </label>
+        ${cats}
       </div>
     </div>`;}).join('');
   box.querySelectorAll('[data-renbm]').forEach(b=>b.onclick=()=>renameBm(b.dataset.renbm));
   box.querySelectorAll('[data-renbm2]').forEach(b=>b.onclick=()=>renameBm(b.dataset.renbm2));
   box.querySelectorAll('[data-rmbm]').forEach(b=>b.onclick=()=>removeBm(b.dataset.rmbm));
+  box.querySelectorAll('[data-togbm]').forEach(b=>b.onclick=()=>toggleBmSheet(b.dataset.togbm));
+  // riordino bookmaker (GLOBALE: stesso ordine in tutti i profili) — sempre consentito
+  enableDnD(box,(from,to)=>{
+    // calcolo il nuovo ordine di riferimento sul foglio corrente
+    const ref=sheet().bookmakers.slice();
+    const moved=ref.splice(from,1)[0];
+    ref.splice(to,0,moved);
+    // riallineo OGNI foglio a quest'ordine; i bookmaker che un foglio non ha vengono saltati,
+    // quelli extra (presenti solo lì) restano in coda nell'ordine precedente
+    app.sheets.forEach(s=>{
+      const inRef=ref.filter(bm=>s.bookmakers.includes(bm));
+      const extra=s.bookmakers.filter(bm=>!ref.includes(bm));
+      s.bookmakers=inRef.concat(extra);
+    });
+    save();renderBmList();renderAll();
+  });
+  if(readOnly)return; // mese passato: sola lettura (soglie e grado)
+  // scrittura sempre sulla mappa PROPRIA del mese visualizzato
+  const mapRW=()=>ownReqMapRW(app.year,view.month);
+  // grado di profilazione: PER PROFILO e per-mese, salvato nel foglio corrente
+  box.querySelectorAll('.mrgrade').forEach(inp=>inp.onchange=()=>{
+    const bm=inp.dataset.bm;const v=inp.value.trim();
+    const gm=sheet().gradeByMonth||(sheet().gradeByMonth={});
+    const mk=monthKey(app.year,view.month);
+    if(v){if(!gm[mk])gm[mk]={};gm[mk][bm]=v;}
+    else if(gm[mk]){delete gm[mk][bm];if(!Object.keys(gm[mk]).length)delete gm[mk];}
+    save();renderAll();
+  });
   box.querySelectorAll('.mrin').forEach(inp=>inp.onchange=()=>{
     const bm=inp.dataset.bm, kind=inp.dataset.mr;
     let v=parseFloat(inp.value);
-    if(!app.minReq[bm])app.minReq[bm]={};
-    if(isNaN(v)||v<0){delete app.minReq[bm][kind];inp.value='';}
-    else app.minReq[bm][kind]=v;
-    cleanupReq(bm);
+    const map=mapRW();
+    if(!map[bm])map[bm]={};
+    if(isNaN(v)||v<0){delete map[bm][kind];inp.value='';}
+    else map[bm][kind]=v;
+    cleanupReqMonth(bm);
     save();renderAll();
   });
   box.querySelectorAll('.mrtog').forEach(chk=>chk.onchange=()=>{
     const bm=chk.dataset.bm, flag=chk.dataset.tog;
-    if(!app.minReq[bm])app.minReq[bm]={};
-    // checkbox spuntata = categoria ATTIVA -> flag off = false
-    if(chk.checked)delete app.minReq[bm][flag];
-    else app.minReq[bm][flag]=true;
-    cleanupReq(bm);
+    const map=mapRW();
+    if(!map[bm])map[bm]={};
+    if(chk.checked)delete map[bm][flag]; else map[bm][flag]=true;
+    cleanupReqMonth(bm);
     save();renderBmList();renderAll();
   });
   box.querySelectorAll('.mrparts').forEach(sel=>sel.onchange=()=>{
     const bm=sel.dataset.bm;
-    if(!app.minReq[bm])app.minReq[bm]={};
-    const p=parseInt(sel.value)||1;
-    if(p===1)delete app.minReq[bm].parts; else app.minReq[bm].parts=p;
-    cleanupReq(bm);
+    const map=mapRW();
+    if(!map[bm])map[bm]={};
+    let p=parseInt(sel.value);if(isNaN(p))p=1;
+    if(p===1)delete map[bm].parts; else map[bm].parts=p;
+    cleanupReqMonth(bm);
     save();renderAll();
   });
 }
-// rimuove la voce minReq del bookmaker se non contiene nulla di utile
-function cleanupReq(bm){
-  const r=app.minReq[bm];
+// rimuove la voce bookmaker dalla mappa del mese visualizzato se vuota
+function cleanupReqMonth(bm){
+  const map=ownReqMapRO(app.year,view.month);
+  if(!map)return;
+  const r=map[bm];
   if(!r)return;
-  if(r.sport==null&&r.casino==null&&!r.offSport&&!r.offCasino&&(r.parts==null||r.parts===1))delete app.minReq[bm];
+  const hasThreshold=CATS.some(c=>r[c.key]!=null);
+  const hasOff=CATS.some(c=>r[c.off]);
+  const hasParts=!(r.parts==null||r.parts===1);
+  if(!hasThreshold&&!hasOff&&!hasParts)delete map[bm];
 }
 
 /* ---- utils ---- */
@@ -1124,17 +1572,73 @@ function deleteSheet(i){
   if(app.current>=app.sheets.length)app.current=app.sheets.length-1;
   save();renderSheetList();renderAll();
 }
+// disattiva/riattiva un foglio (reversibile, dati conservati)
+function toggleSheet(i){
+  const s=app.sheets[i];
+  if(s.disabled){ s.disabled=false; }
+  else{
+    const activeCount=app.sheets.filter(x=>!x.disabled).length;
+    if(activeCount<=1){alert('Deve restare almeno un foglio attivo.');return;}
+    s.disabled=true;
+    // se disattivo il foglio corrente, passo al primo foglio attivo
+    if(app.current===i){
+      const fa=firstActiveSheet();
+      if(fa>-1){app.current=fa;view.month=new Date().getMonth();_pastExpanded=false;_futureExpanded=false;}
+    }
+  }
+  save();renderSheetList();renderAll();
+}
 function renderSheetList(){
   const box=document.getElementById('sheetList');
-  box.innerHTML=app.sheets.map((s,i)=>`
-    <div class="sheetrow ${i===app.current?'active':''}">
-      <span class="nm" data-go="${i}">${escapeHtml(s.name)}</span>
+  box.innerHTML=app.sheets.map((s,i)=>{
+    const off=!!s.disabled;
+    return `
+    <div class="sheetrow draggable ${i===app.current?'active':''} ${off?'rowdisabled':''}" data-idx="${i}">
+      <span class="draghandle" title="Trascina dalla maniglia per riordinare">⠿</span>
+      <span class="nm" data-go="${i}">${escapeHtml(s.name)}${off?' <span class="offbadge">disattivato</span>':''}</span>
       <button class="act" data-ren="${i}">rinomina</button>
+      <button class="act ${off?'on':''}" data-tog="${i}">${off?'riattiva':'disattiva'}</button>
       <button class="act del" data-del="${i}">elimina</button>
-    </div>`).join('');
-  box.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{app.current=+b.dataset.go;view.month=new Date().getMonth();save();renderSheetList();renderAll();});
+    </div>`;}).join('');
+  box.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{const i=+b.dataset.go;if(app.sheets[i].disabled)return;app.current=i;view.month=new Date().getMonth();save();renderSheetList();renderAll();});
   box.querySelectorAll('[data-ren]').forEach(b=>b.onclick=()=>renameSheet(+b.dataset.ren));
+  box.querySelectorAll('[data-tog]').forEach(b=>b.onclick=()=>toggleSheet(+b.dataset.tog));
   box.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>deleteSheet(+b.dataset.del));
+  enableDnD(box,(from,to)=>{
+    const curRef=app.sheets[app.current];
+    const moved=app.sheets.splice(from,1)[0];
+    app.sheets.splice(to,0,moved);
+    app.current=app.sheets.indexOf(curRef); // mantengo selezionato lo stesso foglio
+    save();renderSheetList();renderAll();
+  });
+}
+// Drag & drop generico per una lista di .draggable dentro 'box'.
+// Il trascinamento parte SOLO dalla maniglia .draghandle: la riga diventa
+// draggable solo mentre si tiene premuto sulla maniglia, e torna statica dopo.
+// onReorder(fromIndex,toIndex) riceve gli indici (data-idx) sorgente e destinazione.
+function enableDnD(box,onReorder){
+  let dragIdx=null;
+  box.querySelectorAll('.draggable').forEach(row=>{
+    const handle=row.querySelector('.draghandle');
+    if(handle){
+      const arm=()=>{row.setAttribute('draggable','true');};
+      const disarm=()=>{row.removeAttribute('draggable');};
+      handle.addEventListener('mousedown',arm);
+      handle.addEventListener('touchstart',arm,{passive:true});
+      // se premo altrove sulla riga, resta non trascinabile
+      row.addEventListener('mousedown',e=>{if(!handle.contains(e.target))disarm();});
+      row.addEventListener('dragend',disarm);
+    }
+    row.addEventListener('dragstart',e=>{dragIdx=+row.dataset.idx;row.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
+    row.addEventListener('dragend',()=>{row.classList.remove('dragging');box.querySelectorAll('.dragover').forEach(r=>r.classList.remove('dragover'));});
+    row.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='move';row.classList.add('dragover');});
+    row.addEventListener('dragleave',()=>row.classList.remove('dragover'));
+    row.addEventListener('drop',e=>{e.preventDefault();row.classList.remove('dragover');
+      const to=+row.dataset.idx;
+      if(dragIdx!=null&&dragIdx!==to)onReorder(dragIdx,to);
+      dragIdx=null;
+    });
+  });
 }
 function openSettings(){
   renderSheetList();renderBmList();
@@ -1146,15 +1650,15 @@ function openSettings(){
 /* ---- master render ---- */
 function renderAll(){
   document.getElementById('yearLbl').textContent=app.year;
-  document.getElementById('sheetLbl').textContent=sheet().name;
-  renderMonths();renderGrid();renderAlerts();
+  renderSheetTabs();renderMonths();renderGrid();renderAlerts();
+  // se il pannello impostazioni è aperto, ricarico le soglie del mese visualizzato
+  const setOv=document.getElementById('setOverlay');
+  if(setOv&&setOv.classList.contains('on'))renderBmList();
 }
 
 /* ---- events ---- */
 document.getElementById('yPrev').onclick=()=>{app.year--;save();renderAll();};
 document.getElementById('yNext').onclick=()=>{app.year++;save();renderAll();};
-document.getElementById('sPrev').onclick=()=>switchSheet(-1);
-document.getElementById('sNext').onclick=()=>switchSheet(1);
 document.getElementById('settingsBtn').onclick=openSettings;
 document.getElementById('setClose').onclick=()=>document.getElementById('setOverlay').classList.remove('on');
 document.getElementById('setOverlay').onclick=e=>{if(e.target.id==='setOverlay')document.getElementById('setOverlay').classList.remove('on');};
@@ -1170,10 +1674,13 @@ document.getElementById('importFile').addEventListener('change',e=>{
   e.target.value=''; // permette di reimportare lo stesso file
 });
 document.getElementById('addMvBtn').onclick=addMovement;
+document.getElementById('addRemBtn').onclick=addReminder;
 document.getElementById('mClose').onclick=()=>document.getElementById('overlay').classList.remove('on');
 document.getElementById('overlay').onclick=e=>{if(e.target.id==='overlay')document.getElementById('overlay').classList.remove('on');};
 document.getElementById('inAmt').addEventListener('keydown',e=>{if(e.key==='Enter')addMovement();});
 document.getElementById('inNote').addEventListener('keydown',e=>{if(e.key==='Enter')addMovement();});
+document.getElementById('remAmt').addEventListener('keydown',e=>{if(e.key==='Enter')addReminder();});
+document.getElementById('remNote').addEventListener('keydown',e=>{if(e.key==='Enter')addReminder();});
 document.getElementById('warnInput').addEventListener('change',e=>{
   let v=parseInt(e.target.value);if(isNaN(v)||v<1)v=1;
   app.warnDays=v;
