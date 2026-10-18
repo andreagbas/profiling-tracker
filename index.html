@@ -436,13 +436,14 @@ const TYPELBL={ricarica:'Ricarica',sport:'Sport',casino:'Casinò',casinolive:'Ca
 /* Struttura multi-foglio: ogni foglio è un tracker indipendente
    con i propri bookmaker e dati. Le soglie alert sono globali (in app). */
 function newSheet(name,bookmakers){
+  const bms=bookmakers||['Bet365','Sisal','Snai','WilliamHill','Pokerstar','Lottomatica','Goldbet','Planetwin','Stanleybet','E-Play','Sportium','Betwin','Bwin','Admiralbet','Betsson','Starcasinò','Leovegas','Daznbet','Eurobet','Quigioco','Staryes'];
   return {
     name:name,
-    bookmakers:bookmakers||['Bet365','Sisal','Snai','WilliamHill','Pokerstar','Lottomatica','Goldbet','Planetwin','Stanleybet','E-Play','Sportium','Betwin','Bwin','Admiralbet','Betsson','Starcasinò','Leovegas','Daznbet','Eurobet','Quigioco','Staryes'],
+    bookmakers:bms,
     data:{}, // key `Y-M-D::bm` -> [{type,amt,note,time}]
     reminders:{}, // promemoria manuali: key `Y-M-D::bm` -> [{action,amt,cat,note,done}]
     gradeByMonth:{}, // grado di profilazione per mese: {"anno-mese":{bookmaker:"VIP"}} — PER PROFILO
-    disabledBm:[], // bookmaker DISATTIVATI in questo profilo (nascosti dalla tabella, riattivabili)
+    disabledBm:bms.slice(), // IMPOSTAZIONE BASE: tutti i bookmaker partono DISATTIVATI (l'utente attiva quelli che usa)
     disabled:false // foglio DISATTIVATO: nascosto dalla barra profili, dati conservati
   };
 }
