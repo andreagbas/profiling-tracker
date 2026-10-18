@@ -706,12 +706,17 @@ function initGoogle(){
           gapi.client.setToken({access_token:gToken});
           onSignedIn();
         }else{
-          driveLog('Accesso non riuscito.');
+          // se era un tentativo silenzioso fallito, invito con calma a riconnettere
+          let wanted=false;try{wanted=localStorage.getItem('driveWanted')==='1';}catch(e){}
+          driveLog(wanted?'Sessione Google scaduta — clicca per riconnettere.':'Accesso non riuscito.');
+          updateDriveUI(false);
         }
       }
     });
   }
   updateDriveUI(false);
+  // dopo l'inizializzazione, tento la riconnessione silenziosa se ero connesso
+  trySilentSignIn();
 }
 
 function driveSignIn(){
@@ -725,12 +730,22 @@ function driveSignOut(){
   }
   gToken=null;driveFileId=null;
   try{gapi.client.setToken(null);}catch(e){}
+  try{localStorage.removeItem('driveWanted');}catch(e){} // non ritentare la riconnessione
   updateDriveUI(false);
   driveLog('Disconnesso da Google Drive.');
+}
+// riconnessione silenziosa all'avvio, solo se l'utente era connesso in precedenza
+function trySilentSignIn(){
+  let wanted=false;try{wanted=localStorage.getItem('driveWanted')==='1';}catch(e){}
+  if(!wanted||!gTokenClient)return;
+  driveLog('Riconnessione a Google Drive…');
+  // prompt vuoto = tentativo senza popup (usa la sessione Google del browser)
+  try{gTokenClient.requestAccessToken({prompt:''});}catch(e){}
 }
 
 async function onSignedIn(){
   updateDriveUI(true);
+  try{localStorage.setItem('driveWanted','1');}catch(e){} // ricorda che l'utente era connesso
   driveLog('Connesso. Sincronizzazione…');
   try{
     await driveFindOrCreateFile();
