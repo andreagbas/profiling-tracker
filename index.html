@@ -1103,7 +1103,7 @@ function renderGrid(){
         const tip=remHere.map(r=>`<span class="tt-row"><span class="tt-amt">${escapeHtml(reminderText(r))}</span>${r.note?`<span class="tt-note">${escapeHtml(r.note)}</span>`:''}</span>`).join('');
         remTag=`<span class="remflag">⏰<span class="celltip"><span class="tt-h">Promemoria</span>${tip}</span></span>`;
       }
-      h+=`<td class="cell ${(cnt||remHere.length)?'':'empty'}" data-d="${d}" data-bm="${bi}">${remTag}${inner}</td>`;
+      h+=`<td class="cell ${(cnt||remHere.length)?'':'empty'}" data-d="${d}" data-bm="${escapeHtml(bm)}">${remTag}${inner}</td>`;
     });
     h+='</tr>';
     // end of week (Sunday) or last day -> week total row
@@ -1150,7 +1150,7 @@ function renderGrid(){
   t.innerHTML=h;
 
   t.querySelectorAll('td.cell').forEach(td=>{
-    td.onclick=()=>openDay(+td.dataset.d,+td.dataset.bm);
+    td.onclick=()=>openDay(+td.dataset.d,td.dataset.bm);
   });
   const ptc=document.getElementById('pastToggleCell');
   if(ptc)ptc.onclick=()=>{_pastExpanded=!_pastExpanded;renderGrid();};
@@ -1274,9 +1274,8 @@ function renderAlerts(){
 }
 
 /* ---- day modal ---- */
-function openDay(d,bi){
-  const bm=sheet().bookmakers[bi];
-  modalKey={d,bi,bm};
+function openDay(d,bm){
+  modalKey={d,bm};
   document.getElementById('mTitle').textContent=escapeText(bm);
   document.getElementById('mSub').textContent=`${String(d).padStart(2,'0')} ${MONTHS_FULL[view.month]} ${app.year}`;
   document.getElementById('inAmt').value='';
